@@ -1,21 +1,38 @@
+import { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { UI_TEXT } from '../constants/uiText.js';
 import { ROUTES } from '../constants/routes.js';
 import { getPaymentLabel } from '../constants/paymentMethods.js';
+import { Order } from '../models/index.js';
 import { menuItems, getRestaurantById } from '../data/index.js';
 import { useCart } from '../context/useCart.js';
 import formatCurrency from '../utils/formatCurrency.js';
+import formatTime from '../utils/formatTime.js';
 import EmptyState from '../components/EmptyState.jsx';
 import OrderItemsList from '../components/OrderItemsList.jsx';
+import OrderTracker from '../components/OrderTracker.jsx';
 import TotalsList from '../components/TotalsList.jsx';
 import DishCard from '../components/DishCard.jsx';
 
 const RECOMMENDATION_COUNT = 3;
 
+// Demo only: there's no real kitchen, so the tracker moves itself forward a step every few
+// seconds and stops at "Out for delivery" (the delivery window shows when it would arrive).
+const DEMO_STEP_MS = 5000;
+const DEMO_LAST_STATUS = Order.STATUS.OUT_FOR_DELIVERY;
+
+const listFormatter = new Intl.ListFormat('en', { style: 'long', type: 'conjunction' });
+
 export default function OrderConfirmationPage() {
   const { id } = useParams();
-  const { getOrderById } = useCart();
+  const { getOrderById, updateOrderStatus } = useCart();
   const order = getOrderById(id);
+
+  useEffect(() => {
+    if (!order || order.getStatusStep() >= Order.STATUS_FLOW.indexOf(DEMO_LAST_STATUS)) return undefined;
+    const timer = setTimeout(() => updateOrderStatus(order.id, order.getNextStatus()), DEMO_STEP_MS);
+    return () => clearTimeout(timer);
+  }, [order, updateOrderStatus]);
 
   // Orders live in memory only, so a page refresh clears them.
   if (!order) {
@@ -36,13 +53,24 @@ export default function OrderConfirmationPage() {
     RECOMMENDATION_COUNT
   );
 
+  const { from, to } = order.getEstimatedArrival();
+
   return (
     <div className="flex flex-col gap-8">
-      <section className="rounded-2xl border-2 border-brand-black bg-brand-yellow/30 p-6 text-center">
-        <p className="mb-3 inline-block rounded-full bg-brand-black px-4 py-1 text-xs text-brand-white">
-          {order.getStatusLabel()}
-        </p>
-        <h1 className="font-display text-xl sm:text-2xl font-bold leading-snug">{UI_TEXT.confirmation.message(order.id)}</h1>
+      <section className="flex flex-col gap-6 rounded-2xl border-2 border-brand-black bg-brand-yellow/30 p-6 shadow-[4px_4px_0_0_var(--color-brand-black)] sm:p-8">
+        <div className="flex flex-col gap-2 text-center">
+          <h1 className="font-display text-2xl font-bold motion-safe:animate-fade-in sm:text-3xl">
+            {UI_TEXT.confirmation.thanks(order.delivery.getFirstName())}
+          </h1>
+          <p className="leading-relaxed">{UI_TEXT.confirmation.message(order.id)}</p>
+          <p className="text-sm">
+            {UI_TEXT.confirmation.summary(order.getItemCount(), listFormatter.format(order.getRestaurantNames()))}
+          </p>
+          <p className="mx-auto mt-1 rounded-full bg-brand-black px-4 py-1 text-sm font-bold text-brand-white">
+            {UI_TEXT.confirmation.eta(formatTime(from), formatTime(to))}
+          </p>
+        </div>
+        <OrderTracker order={order} />
       </section>
 
       <div className="grid gap-6 md:grid-cols-[2fr_1fr]">

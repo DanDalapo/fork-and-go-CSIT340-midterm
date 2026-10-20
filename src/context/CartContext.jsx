@@ -36,6 +36,8 @@ export function CartProvider({ children }) {
         return order;
       },
       getOrderById: (id) => orders.find((order) => order.id === id),
+      updateOrderStatus: (id, status) =>
+        setOrders((previous) => previous.map((order) => (order.id === id ? order.withStatus(status) : order))),
     }),
     [cart, orders, update]
   );

@@ -6,7 +6,7 @@ export default function DishCard({ item, restaurant }) {
   return (
     <Link
       to={itemPath(item.id)}
-      className="group flex flex-col overflow-hidden rounded-2xl border-2 border-brand-black bg-brand-white transition hover:-translate-y-1 hover:shadow-[4px_4px_0_0_var(--color-brand-black)]"
+      className="group flex w-full flex-col overflow-hidden rounded-2xl border-2 border-brand-black bg-brand-white transition hover:-translate-y-1 hover:shadow-[4px_4px_0_0_var(--color-brand-black)]"
     >
       <img
         src={item.images[0]}

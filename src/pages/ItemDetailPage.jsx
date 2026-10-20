@@ -101,7 +101,7 @@ export default function ItemDetailPage() {
         </div>
       </div>
 
-      <div role="status" aria-live="polite" className="pointer-events-none fixed inset-x-0 bottom-6 flex justify-center px-4">
+      <div role="status" aria-live="polite" className="pointer-events-none fixed inset-x-0 top-20 z-20 flex justify-center px-4">
         {toast && (
           <p className="rounded-full bg-brand-black px-5 py-3 text-sm text-brand-white shadow-lg">
             {toast.text}

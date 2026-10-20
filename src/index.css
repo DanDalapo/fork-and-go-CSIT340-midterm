@@ -10,6 +10,16 @@
   --color-brand-yellow: #E5C22A;
   --color-brand-grey: #D9D9D9;
   --color-brand-white: #FFFFFF;
+
+  /* Used as motion-safe:animate-fade-in so changing messages ease in. */
+  --animate-fade-in: fade-in 0.4s ease-out;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
 }
 
 body {

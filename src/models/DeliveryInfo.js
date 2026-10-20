@@ -15,6 +15,11 @@ export default class DeliveryInfo {
     return errors;
   }
 
+  // "John Doe" -> "John", for friendly greetings.
+  getFirstName() {
+    return this.fullName.trim().split(/\s+/)[0];
+  }
+
   isValid() {
     return Object.keys(this.getErrors()).length === 0;
   }

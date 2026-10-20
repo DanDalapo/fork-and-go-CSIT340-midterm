@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import { UI_TEXT } from '../constants/uiText.js';
 import { FilterCriteria } from '../models/index.js';
 import { categories, restaurants, menuItems, getRestaurantById } from '../data/index.js';
+import WelcomeBanner from '../components/WelcomeBanner.jsx';
 import CategoryChips from '../components/CategoryChips.jsx';
 import FilterBar from '../components/FilterBar.jsx';
 import DishCard from '../components/DishCard.jsx';
@@ -41,7 +42,7 @@ export default function HomePage() {
 
   return (
     <div className="flex flex-col gap-6">
-      <h1 className="font-display text-2xl sm:text-3xl font-bold">{UI_TEXT.home.heading}</h1>
+      <WelcomeBanner filter={filter} />
 
       <CategoryChips
         categories={categories}

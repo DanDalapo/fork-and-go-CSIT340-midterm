@@ -20,10 +20,32 @@ export const UI_TEXT = {
     headingLine1: 'Order Fresh Food',
     headingLine2: 'at Your Doorstep',
     cta: 'Order Now',
+    subheading: 'Dishes from your favorite local restaurants, all in one cart and delivered hot.',
+    categoriesHeading: 'Browse by category',
+    popularHeading: 'Popular right now',
+    restaurantsHeading: 'Our restaurants',
+    seeAll: 'See all dishes',
+    restaurantMeta: (cuisine, rating) => `${cuisine} · ★ ${rating}`,
   },
 
   home: {
-    heading: 'Welcome! What are you craving today?',
+    // Greeting changes with the time of day (see utils/timeOfDay.js).
+    greetings: {
+      morning: (name) => `Good morning, ${name}! ☀️`,
+      afternoon: (name) => `Good afternoon, ${name}! 🌤️`,
+      evening: (name) => `Good evening, ${name}! 🌆`,
+      night: (name) => `Late-night cravings, ${name}? 🌙`,
+    },
+    // The line under the greeting reacts to the current search/filter; one of `prompts` shows otherwise.
+    prompts: [
+      'What are you craving today?',
+      "Hungry? Let's fix that.",
+      'Something cheesy or something sweet?',
+      'Your next favorite dish is one click away.',
+    ],
+    searchPrompt: (text) => `Looking for "${text}"? Here's what we found.`,
+    categoryPrompt: (icon, name) => `Craving ${icon} ${name}? Great choice.`,
+    restaurantPrompt: (name) => `Fresh from the kitchen at ${name}.`,
     categoriesLabel: 'Categories',
     allCategories: 'All',
     allRestaurants: 'All restaurants',
@@ -106,8 +128,13 @@ export const UI_TEXT = {
   },
 
   confirmation: {
+    thanks: (name) => `Thank you, ${name}! 🎉`,
     message: (orderId) =>
       `Good news! Your order #${orderId} is in! We'll notify you as soon as it's out for delivery`,
+    summary: (count, restaurantList) =>
+      `${count} ${count === 1 ? 'dish' : 'dishes'} from ${restaurantList}, coming right up.`,
+    eta: (from, to) => `Estimated arrival: ${from} – ${to}`,
+    trackerLabel: 'Order progress',
     nextOrder: 'For your next order:',
     notFoundTitle: 'Order not found',
     notFoundBody: 'We could not find that order. It may have been cleared when the page was refreshed.',
@@ -120,7 +147,22 @@ export const UI_TEXT = {
     delivered: 'Delivered',
   },
 
+  orderStatusIcons: {
+    placed: '🧾',
+    preparing: '👩‍🍳',
+    out_for_delivery: '🛵',
+    delivered: '🏠',
+  },
+
+  orderStatusDetails: {
+    placed: 'The restaurant has received your order.',
+    preparing: 'The kitchen is cooking your food right now.',
+    out_for_delivery: 'Your rider is on the way. Get your appetite ready!',
+    delivered: 'Enjoy your meal!',
+  },
+
   notFound: {
+    code: '404',
     title: 'Page not found',
     body: 'The page you are looking for does not exist.',
     cta: 'Back to home',

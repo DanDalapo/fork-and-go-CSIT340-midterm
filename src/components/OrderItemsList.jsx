@@ -10,7 +10,7 @@ export default function OrderItemsList({ groups }) {
         <div key={restaurant.id}>
           <div className="flex justify-between gap-4 border-b-2 border-brand-black pb-1 text-sm">
             <h3 className="font-display font-bold">{restaurant.name}</h3>
-            <span>
+            <span className="shrink-0 whitespace-nowrap">
               {UI_TEXT.cart.deliveryFee}: {formatCurrency(restaurant.deliveryFee)}
             </span>
           </div>
