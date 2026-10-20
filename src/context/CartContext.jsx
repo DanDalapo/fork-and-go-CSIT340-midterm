@@ -1,7 +1,6 @@
-import { createContext, useCallback, useContext, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { Cart } from '../models/index.js';
-
-const CartContext = createContext(null);
+import { CartContext } from './cartContext.js';
 
 export function CartProvider({ children }) {
   const [cart, setCart] = useState(() => new Cart());
@@ -42,10 +41,4 @@ export function CartProvider({ children }) {
   );
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
-}
-
-export function useCart() {
-  const context = useContext(CartContext);
-  if (!context) throw new Error('useCart must be used inside <CartProvider>');
-  return context;
 }

@@ -24,11 +24,13 @@ export const UI_TEXT = {
 
   home: {
     heading: 'Welcome! What are you craving today?',
+    categoriesLabel: 'Categories',
     allCategories: 'All',
     allRestaurants: 'All restaurants',
     restaurantLabel: 'Restaurant',
     sortLabel: 'Sort by',
     maxPriceLabel: 'Max price',
+    anyPrice: 'Any price',
     clearFilters: 'Clear filters',
     resultsCount: (count) => `${count} ${count === 1 ? 'item' : 'items'} found`,
     noResultsTitle: 'No dishes match your search',
@@ -86,6 +88,7 @@ export const UI_TEXT = {
       fullName: 'Please enter your full name.',
       phone: 'Please enter a valid phone number.',
       address: 'Please enter your delivery address.',
+      orderFailed: 'We could not place your order. Please check your details and try again.',
     },
     foodOrders: 'Food Orders',
     price: 'Price',

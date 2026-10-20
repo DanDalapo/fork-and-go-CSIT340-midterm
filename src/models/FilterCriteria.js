@@ -1,3 +1,5 @@
+import { SEARCH_PARAM } from '../constants/routes.js';
+
 export default class FilterCriteria {
   static SORT = {
     DEFAULT: 'default',
@@ -6,6 +8,29 @@ export default class FilterCriteria {
     TOP_RATED: 'rating',
     NAME: 'name',
   };
+
+  // URL query keys, so filters survive navigation (going back from a dish keeps them).
+  static PARAMS = {
+    searchText: SEARCH_PARAM,
+    categoryId: 'category',
+    restaurantId: 'restaurant',
+    maxPrice: 'maxPrice',
+    sortBy: 'sort',
+  };
+
+  // Builds criteria from the URL, ignoring values that don't make sense.
+  static fromSearchParams(params) {
+    const keys = FilterCriteria.PARAMS;
+    const maxPrice = Number(params.get(keys.maxPrice));
+    const sortBy = params.get(keys.sortBy);
+    return new FilterCriteria({
+      searchText: params.get(keys.searchText) ?? '',
+      categoryId: params.get(keys.categoryId) ?? '',
+      restaurantId: params.get(keys.restaurantId) ?? '',
+      maxPrice: Number.isFinite(maxPrice) && maxPrice > 0 ? maxPrice : null,
+      sortBy: Object.values(FilterCriteria.SORT).includes(sortBy) ? sortBy : FilterCriteria.SORT.DEFAULT,
+    });
+  }
 
   constructor({
     searchText = '',
@@ -43,6 +68,18 @@ export default class FilterCriteria {
         this.maxPrice !== null ||
         this.sortBy !== FilterCriteria.SORT.DEFAULT
     );
+  }
+
+  // Only non-default values go in the URL, so a cleared filter gives a clean /menu.
+  toSearchParams() {
+    const keys = FilterCriteria.PARAMS;
+    const params = new URLSearchParams();
+    if (this.searchText.trim()) params.set(keys.searchText, this.searchText.trim());
+    if (this.categoryId) params.set(keys.categoryId, this.categoryId);
+    if (this.restaurantId) params.set(keys.restaurantId, this.restaurantId);
+    if (this.maxPrice !== null) params.set(keys.maxPrice, String(this.maxPrice));
+    if (this.sortBy !== FilterCriteria.SORT.DEFAULT) params.set(keys.sortBy, this.sortBy);
+    return params;
   }
 
   apply(items) {

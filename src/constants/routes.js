@@ -11,3 +11,6 @@ export const ROUTES = {
 // Path builders, so components never concatenate URLs by hand.
 export const itemPath = (id) => `/menu/${id}`;
 export const orderPath = (id) => `/orders/${id}`;
+
+// The navbar search sends its text to the menu page as ?q=...
+export const SEARCH_PARAM = 'q';

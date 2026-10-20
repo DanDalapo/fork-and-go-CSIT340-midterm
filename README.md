@@ -1,16 +1,45 @@
-# React + Vite
+# Fork & GO
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An online food ordering website where customers browse dishes from several restaurants, search and filter the menu, and check out a single cart that can mix items from different restaurants.
 
-Currently, two official plugins are available:
+Built with React, React Router and Tailwind CSS as a front-end only project for CSIT340.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Requirements
 
-## React Compiler
+- [Node.js](https://nodejs.org/) 20.19+ or 22.12+
+- npm (comes with Node.js)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Setup
 
-## Expanding the ESLint configuration
+1. Clone the repository and open the project folder:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+   ```bash
+   git clone https://github.com/DanDalapo/fork-and-go-CSIT340-midterm.git
+   cd fork-and-go-CSIT340-midterm
+   ```
+
+2. Install the dependencies:
+
+   ```bash
+   npm install
+   ```
+
+3. Start the development server:
+
+   ```bash
+   npm run dev
+   ```
+
+4. Open the address shown in the terminal (usually http://localhost:5173) in your browser.
+
+## Other commands
+
+| Command           | What it does                                |
+| ----------------- | ------------------------------------------- |
+| `npm run build`   | Build the site for production into `dist/`  |
+| `npm run preview` | Preview the production build locally        |
+| `npm run lint`    | Check the code with ESLint                  |
+
+## Author
+
+Dan Erik F. Dalapo

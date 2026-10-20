@@ -1,6 +1,7 @@
 import CartItem from './CartItem.js';
 import Order from './Order.js';
 import { sumSubtotal, sumDeliveryFees } from '../utils/pricing.js';
+import groupByRestaurant from '../utils/groupByRestaurant.js';
 
 export default class Cart {
   constructor(items = []) {
@@ -55,15 +56,7 @@ export default class Cart {
 
   // Map of restaurantId -> { restaurant, items }, used to render one section per restaurant.
   getGroupedByRestaurant(onlySelected = false) {
-    const source = onlySelected ? this.getSelectedItems() : this.items;
-    const groups = new Map();
-    source.forEach((item) => {
-      if (!groups.has(item.restaurant.id)) {
-        groups.set(item.restaurant.id, { restaurant: item.restaurant, items: [] });
-      }
-      groups.get(item.restaurant.id).items.push(item);
-    });
-    return groups;
+    return groupByRestaurant(onlySelected ? this.getSelectedItems() : this.items);
   }
 
   // Total quantity of everything in the cart (navbar badge).

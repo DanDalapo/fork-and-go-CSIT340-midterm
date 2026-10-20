@@ -1,6 +1,7 @@
 import BaseEntity from './BaseEntity.js';
 import { UI_TEXT } from '../constants/uiText.js';
 import { sumSubtotal, sumDeliveryFees } from '../utils/pricing.js';
+import groupByRestaurant from '../utils/groupByRestaurant.js';
 
 export default class Order extends BaseEntity {
   static STATUS = {
@@ -29,6 +30,10 @@ export default class Order extends BaseEntity {
     this.paymentMethod = paymentMethod;
     this.status = status;
     this.placedAt = placedAt;
+  }
+
+  getGroupedByRestaurant() {
+    return groupByRestaurant(this.items);
   }
 
   getSubtotal() {
