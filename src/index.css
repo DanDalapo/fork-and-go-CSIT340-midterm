@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "BioRhyme Expanded", serif;
+  --font-body: "Chivo Mono", monospace;
+
+  --color-brand-black: #000000;
+  --color-brand-orange: #FF8132;
+  --color-brand-orange-dark: #C2410C;
+  --color-brand-yellow: #E5C22A;
+  --color-brand-grey: #D9D9D9;
+  --color-brand-white: #FFFFFF;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--color-brand-white);
+  color: var(--color-brand-black);
+}
